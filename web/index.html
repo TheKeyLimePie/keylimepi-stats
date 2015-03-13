@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="css/foundation.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<meta charset="UTF-8">
+		<title>Raspberry Pi | Stats</title>
+	</head>
+	<body onload="init()">
+		<div class="row" style="background-color: #99cc00">
+			<div class="small-12 large-6 columns text-left">
+				<h1>KeyLimePi stats</h1>
+			</div>
+			<div class="small-12 large-6 columns small-text-left large-text-right">
+				<h1 id="clock">00:00:00</h1>
+			</div>
+		</div>
+		
+		<div class="title row">
+			<h4 class="large-12 columns">Temperature</h4>
+		</div>
+		<div class="row" style="height: 20%">
+			<div class="container large-12 columns">
+				<canvas id="temperature"></canvas>
+			</div>
+		</div>
+
+		<div class="title row">
+			<h4 class="small-12 columns">CPU (&Delta;1000ms)</h4>
+		</div>
+		<div class="row" style="height: 15%">
+			<div class="container small-6 small-centered columns">
+				<canvas id="cpu_cores"></canvas>
+			</div>
+		</div>
+
+		<div class="title row">
+			<h4 class="small-4 columns">RAM usage</h4>
+			<h4 class="small-4 columns">Root disk usage</h4>
+			<h4 class="small-4 columns">SDA1 disk usage</h4>
+		</div>
+		<div class="row" style="height: 15%">
+			<div class="container small-4 columns">
+				<canvas id="ram"></canvas>
+			</div>
+			<div class="container small-4 columns">
+				<canvas id="disk"></canvas>
+			</div>
+			<div class="container small-4 columns">
+				<canvas id="sda"></canvas>
+			</div>
+		</div>
+		
+		<div class="title row">
+			<h4 id="total_in" class="small-4 columns"></h4>
+			<h4 class="small-4 columns">Network rate</h4>
+			<h4 id="total_out" class="small-4 columns"></h4>
+		</div>
+		<div class="row" style="height: 20%">
+			<div class="container large-12 columns">
+				<canvas id="network"></canvas>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="medium-12 large-4 large-offset-4 columns" style="height: 100%">
+				<button type="button" id="sync_on_off" class="pause">Pause</button>
+			</div>
+		</div>
+		<script src="chart/Chart.js"></script>
+		<script src="js/scripts.js"></script>
+	</body>
+</html>

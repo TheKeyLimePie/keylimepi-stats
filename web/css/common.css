@@ -1,0 +1,91 @@
+@charset "utf-8";
+body
+{
+	text-align: center;
+	background-color: #f9f9f9;
+}
+h1
+{
+	color: #fff;
+	margin: 0;
+}
+h4
+{
+	font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	font-weight: normal;
+	color: #ccc;
+	margin: 0;
+}
+#clock
+{
+	color: rgba(255,255,255,0.5);
+}
+.pause
+{
+	height: 100%;
+	min-height: 35px;
+	width: 100%;
+	background-color: rgba(175,17,67,0.5);
+	border: 2px solid rgba(175,17,67,0.75);
+	font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	font-size: 25px;
+	font-weight: normal;
+	color: #fff;
+}
+.pause:hover
+{
+	background-color: rgba(175,17,67,0.75);
+	border: 2px solid rgba(175,17,67,0.9);
+	cursor: pointer;
+}
+.continue
+{
+	height: 100%;
+	min-height: 35px;
+	width: 100%;
+	background-color: rgba(153,204,0,0.5);
+	border: 2px solid rgba(153,204,0,0.75);
+	font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	font-size: 25px;
+	font-weight: normal;
+	color: #fff;
+}
+.continue:hover
+{
+	background-color: rgba(153,204,0,0.75);
+	border: 2px solid rgba(153,204,0,0.9);
+	cursor: pointer;
+}
+#temperature
+{
+	background-image: url("../klpi.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+#total_in
+{
+	color: rgb(153,204,0);
+}
+#total_out
+{
+	color: rgb(51,181,229);
+}
+.container
+{
+	text-align: center;
+	height: 100%;
+	padding: 0;
+}
+.row
+{
+	max-width: 90%;
+	background-color: #fff;
+	padding: 5px;
+	margin-bottom: 20px;
+	box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.3)
+}
+.title
+{
+	margin-bottom: 0;
+}
