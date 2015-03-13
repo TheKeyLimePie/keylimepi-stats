@@ -5,3 +5,5 @@ Just a small web interface which shows you your Raspberry Pi stats such as tempe
 <br/>If you really want to use this on your own Rasp (or any other linux system) you should make some changes to make it work well on your device (see <b>MakeItFit.md</b>).
 <br/><br/>
 Need some help? Do you have a question about this project? Feel free to open an issue ticket here.
+<br/>
+![Screenshot of the web interface](screenshot.png?raw=true)
