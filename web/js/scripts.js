@@ -10,11 +10,6 @@ function init()
 	{
 		toggleSync();
 	});
-	
-	$("#load_dsl_data").on("click", function()
-	{
-		updateDSL();
-	});
 
 	clock_update = window.setInterval(clock, 1000);
 	
@@ -161,6 +156,25 @@ function init()
 	ctx = $("#dsl").get(0).getContext("2d");
 	chartDSL = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> MBit/s", animation: false, showScale: false});
 
+	//DSL Ping chart
+	data = {
+		labels: [],
+		datasets: [
+			{
+				label: "Ping",
+				fillColor: "rgba(51,181,229,0.2)",
+				strokeColor: "rgba(51,181,229,1)",
+				pointColor: "rgba(51,181,229,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(220,220,220,1)",
+				data: []
+			}
+		]
+	}
+	ctx = $("#dsl_ping").get(0).getContext("2d");
+	chartDSLPing = new Chart(ctx).Line(data, {bezierCurve: false, tooltipTemplate: "<%= value%> ms", animation: false, showScale: false});
+	
 	//start updating
 	update();
 	updateDSL();
@@ -276,10 +290,12 @@ function updateDSL()
 		
 		chartDSL.datasets[0].points = new Array();
 		chartDSL.datasets[1].points = new Array();
+		chartDSLPing.datasets[0].points = new Array();
 		
 		for(var x = dates.length > amountDSL ? dates.length - amountDSL : 0; x < dates.length; x++)
 		{
 			chartDSL.addData([dl[x], ul[x]], dates[x]);
+			chartDSLPing.addData([ping[x]], dates[x]);
 		}
 	});
 }
