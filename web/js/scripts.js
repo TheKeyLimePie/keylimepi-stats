@@ -152,13 +152,14 @@ function init()
 		]
 	}
 	ctx = $("#dsl").get(0).getContext("2d");
-	chartDSL = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> MBit/s"});
+	//chartDSL = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> MBit/s"});
+	chartDSL = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> MBit/s", scaleShowLabels: false});
 	
 	//start updating
 	update();
 	updateDSL();
 	interval = window.setInterval(update, 3000);
-	interval = window.setInterval(updateDSL, 900000); //15 min
+	intervalDSL = window.setInterval(updateDSL, 900000); //15 min
 }
 function pad(number, digits)
 {
