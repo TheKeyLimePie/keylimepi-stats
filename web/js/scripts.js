@@ -1,6 +1,8 @@
 //max. data values on a big chart
 amountBig = 50;
 amountDSL = 96;	//speedtest recorded every 15 min -> 4*24 = 96
+interval = 0;
+intervalDSL = 0;
 
 function init()
 {
@@ -9,6 +11,11 @@ function init()
 		toggleSync();
 	});
 	
+	$("#load_dsl_data").on("click", function()
+	{
+		updateDSL();
+	});
+
 	clock_update = window.setInterval(clock, 1000);
 	
 	Chart.defaults.global.responsive = true;
@@ -152,14 +159,11 @@ function init()
 		]
 	}
 	ctx = $("#dsl").get(0).getContext("2d");
-	//chartDSL = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> MBit/s"});
-	chartDSL = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> MBit/s", scaleShowLabels: false});
-	
+	chartDSL = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> MBit/s"});
+
 	//start updating
 	update();
-	updateDSL();
 	interval = window.setInterval(update, 3000);
-	intervalDSL = window.setInterval(updateDSL, 900000); //15 min
 }
 function pad(number, digits)
 {
@@ -275,6 +279,9 @@ function updateDSL()
 		{
 			chartDSL.addData([dl[x], ul[x]], dates[x]);
 		}
+		
+		window.clearInterval(intervalDSL);
+		intervalDSL = window.setInterval(updateDSL, 900000); //15 min
 	});
 }
 
