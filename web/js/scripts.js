@@ -1,5 +1,6 @@
 //max. data values on a big chart
 amountBig = 50;
+amountDSL = 96;	//speedtest recorded every 15 min -> 4*24 = 96
 
 function init()
 {
@@ -269,9 +270,9 @@ function updateDSL()
 		chartDSL.datasets[0].points = new Array();
 		chartDSL.datasets[1].points = new Array();
 		
-		for(var d in dates)
+		for(var x = dates.length > amountDSL ? dates.length - amountDSL : 0; x < dates.length; x++)
 		{
-			chartDSL.addData([dl[d], ul[d]], dates[d]);
+			chartDSL.addData([dl[x], ul[x]], dates[x]);
 		}
 	});
 }
