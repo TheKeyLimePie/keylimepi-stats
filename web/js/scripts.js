@@ -124,9 +124,40 @@ function init()
 	ctx = $("#network").get(0).getContext("2d");
 	chartNetwork = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> KiB/s"});
 	
+	//DSL chart
+	data = {
+		labels: [],
+		datasets: [
+			{
+				label: "Download",
+				fillColor: "rgba(153,204,0,0.2)",
+				strokeColor: "rgba(153,204,0,1)",
+				pointColor: "rgba(153,204,0,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(220,220,220,1)",
+				data: []
+			},
+			{
+				label: "Upload",
+				fillColor: "rgba(51,181,229,0.2)",
+				strokeColor: "rgba(51,181,229,1)",
+				pointColor: "rgba(51,181,229,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(220,220,220,1)",
+				data: []
+			}
+		]
+	}
+	ctx = $("#dsl").get(0).getContext("2d");
+	chartDSL = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> MBit/s"});
+	
 	//start updating
 	update();
+	updateDSL();
 	interval = window.setInterval(update, 3000);
+	interval = window.setInterval(updateDSL, 900000); //15 min
 }
 function pad(number, digits)
 {
@@ -225,6 +256,26 @@ function update()
 		$("#total_out").html("Total out: ".concat(totalOut, " GiB"));
 	});
 }
+function updateDSL()
+{
+	$.post("dsl/index.php", {format: "json"}, function(data)
+	{
+		var object = $.parseJSON(data);
+		var dates = object.dates;
+		var ping = object.ping;
+		var dl = object.dl;
+		var ul = object.ul;
+		
+		chartDSL.datasets[0].points = new Array();
+		chartDSL.datasets[1].points = new Array();
+		
+		for(var d in dates)
+		{
+			chartDSL.addData([dl[d], ul[d]], dates[d]);
+		}
+	});
+}
+
 function toggleSync()
 {
 	if($("#sync_on_off").hasClass("pause"))
