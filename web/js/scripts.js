@@ -296,7 +296,9 @@ function updateDSL()
 			
 			chartDSL.datasets[0].points = new Array();
 			chartDSL.datasets[1].points = new Array();
+			chartDSL.update();
 			chartDSLPing.datasets[0].points = new Array();
+			chartDSLPing.update();
 			
 			for(var x = dates.length > amountDSL ? dates.length - amountDSL : 0; x < dates.length; x++)
 			{
