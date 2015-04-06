@@ -1,22 +1,8 @@
-//max. data values on a big chart
-amountBig = 50;
-amountDSL = 96;	//speedtest recorded every 15 min -> 4*24 = 96
-interval = 0;
-intervalDSL = 0;
+//data sync
 sync = true;
 
-function init()
+function initTempChart()
 {
-	$("#sync_on_off").on("click", function()
-	{
-		toggleSync();
-	});
-
-	clock_update = window.setInterval(clock, 1000);
-	
-	Chart.defaults.global.responsive = true;
-	Chart.defaults.global.maintainAspectRatio = false;
-	//Temperature chart
 	var data = {labels:[], datasets:[
 	{
 		label: "Temperature",
@@ -34,9 +20,11 @@ function init()
 	};
 	var ctx = $("#temperature").get(0).getContext("2d");
 	chartTemp = new Chart(ctx).Line(data, config);
-	
-	//CPU chart
-	data = {
+}
+
+function initCPUChart()
+{
+	var data = {
 		labels: ["CPU", "CPU0", "CPU1", "CPU2", "CPU3"],
 		datasets: [
 			{
@@ -57,7 +45,7 @@ function init()
 			}
 		]
 	};
-	ctx = $("#cpu_cores").get(0).getContext("2d");
+	var ctx = $("#cpu_cores").get(0).getContext("2d");
 	chartCPUCores = new Chart(ctx).Bar(data, {multiTooltipTemplate: "<%= value%>%"});
 	chartCPUCores.datasets[0].bars[0].fillColor = "rgba(51,181,229,0.5)";
 	chartCPUCores.datasets[0].bars[0].strokeColor = "rgba(51,181,229,0.8)";
@@ -67,9 +55,11 @@ function init()
 	chartCPUCores.datasets[1].bars[0].strokeColor = "rgba(0,153,204,0.8)";
 	chartCPUCores.datasets[1].bars[0].highlightFill = "rgba(0,153,204,0.75)";
 	chartCPUCores.datasets[1].bars[0].highlightStroke = "rgba(0,153,204,0.1)";
-	
-	//RAM chart
-	data = [
+}
+
+function initRAMChart()
+{
+	var data = [
 		{
 			value: 0,
 			color: "rgba(153,204,0,0.75)",
@@ -82,25 +72,51 @@ function init()
 		}
 	];
 	//, onAnimationProgress: function(){this.showTooltip(this.segments, true)}, tooltipEvents: [], showTooltips: true
-	ctx = $("#ram").get(0).getContext("2d");
+	var ctx = $("#ram").get(0).getContext("2d");
 	chartRam = new Chart(ctx).Doughnut(data, {animationEasing: "easeOutQuart", tooltipTemplate: "<%= label%>: <%= value%>MiB"});
-	
-	//Root disk space chart
-	data[0].label = "Free disk space";
-	data[1].label = "Occupied disk space";
+}
+
+function initRootSpaceChart()
+{
+	var data = [
+		{
+			value: 0,
+			color: "rgba(153,204,0,0.75)",
+			label: "Free disk space"
+		},
+		{
+			value: 100,
+			color: "rgba(175,17,67,0.75)",
+			label: "Occupied disk space"
+		}
+	];
 	//, onAnimationProgress: function(){this.showTooltip(this.segments, true)}, tooltipEvents: [], showTooltips: true
-	ctx = $("#disk").get(0).getContext("2d");
+	var ctx = $("#disk").get(0).getContext("2d");
 	chartDisk = new Chart(ctx).Doughnut(data, {animationEasing: "easeOutQuart", tooltipTemplate: "<%= label%>: <%= value%>MiB"});
-	
-	//SDA1 disk space chart
-	data[0].label = "Free disk space";
-	data[1].label = "Occupied disk space";
+}
+
+function initSDA1Chart()
+{
+	var data = [
+		{
+			value: 0,
+			color: "rgba(153,204,0,0.75)",
+			label: "Free disk space"
+		},
+		{
+			value: 100,
+			color: "rgba(175,17,67,0.75)",
+			label: "Occupied disk space"
+		}
+	];
 	//, onAnimationProgress: function(){this.showTooltip(this.segments, true)}, tooltipEvents: [], showTooltips: true
-	ctx = $("#sda").get(0).getContext("2d");
+	var ctx = $("#sda").get(0).getContext("2d");
 	chartSDA = new Chart(ctx).Doughnut(data, {animationEasing: "easeOutQuart", tooltipTemplate: "<%= label%>: <%= value%>MiB"});
-	
-	//Network chart
-	data = {
+}
+
+function initNetworkChart()
+{
+	var data = {
 		labels: [],
 		datasets: [
 			{
@@ -125,11 +141,13 @@ function init()
 			}
 		]
 	}
-	ctx = $("#network").get(0).getContext("2d");
+	var ctx = $("#network").get(0).getContext("2d");
 	chartNetwork = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> KiB/s"});
-	
-	//DSL chart
-	data = {
+}
+
+function initDSLChart()
+{
+	var data = {
 		labels: [],
 		datasets: [
 			{
@@ -154,11 +172,13 @@ function init()
 			}
 		]
 	}
-	ctx = $("#dsl").get(0).getContext("2d");
+	var ctx = $("#dsl").get(0).getContext("2d");
 	chartDSL = new Chart(ctx).Line(data, {bezierCurve: false, multiTooltipTemplate: "<%= value%> MBit/s", animation: false, showScale: false});
+}
 
-	//DSL Ping chart
-	data = {
+function initDSLPingChart()
+{
+	var data = {
 		labels: [],
 		datasets: [
 			{
@@ -173,8 +193,30 @@ function init()
 			}
 		]
 	}
-	ctx = $("#dsl_ping").get(0).getContext("2d");
+	var ctx = $("#dsl_ping").get(0).getContext("2d");
 	chartDSLPing = new Chart(ctx).Line(data, {bezierCurve: false, tooltipTemplate: "<%= value%> ms", animation: false, showScale: false});
+}
+
+function init()
+{
+	$("#sync_on_off").on("click", function()
+	{
+		toggleSync();
+	});
+
+	clock_update = window.setInterval(clock, 1000);
+	
+	Chart.defaults.global.responsive = true;
+	Chart.defaults.global.maintainAspectRatio = false;
+
+	initTempChart();
+	initCPUChart();
+	initRAMChart();
+	initRootSpaceChart();
+	initSDA1Chart();
+	initNetworkChart();
+	initDSLChart();
+	initDSLPingChart();
 	
 	//start updating
 	update();
@@ -294,11 +336,12 @@ function updateDSL()
 			var dl = object.dl;
 			var ul = object.ul;
 			
-			chartDSL.datasets[0].points = new Array();
-			chartDSL.datasets[1].points = new Array();
-			chartDSL.update();
-			chartDSLPing.datasets[0].points = new Array();
-			chartDSLPing.update();
+			//hard reset: otherwise render issues with old datasets would appear
+			chartDSL.destroy();
+			chartDSLPing.destroy();
+			
+			initDSLChart();
+			initDSLPingChart();
 			
 			for(var x = dates.length > amountDSL ? dates.length - amountDSL : 0; x < dates.length; x++)
 			{
