@@ -1,7 +1,12 @@
 <h2>Things you have to pay attention to when using this web interface:</h2>
 <ul>
   <li>Download Chart.js (GitHub link in the README file) to <b>chart/</b> (I hope you know how to mkdir)</li>
-  <li>Download speedtest-cli (GitHub link in the README file) to e.g. your home directory</li>
+  <li>Download speedtest-cli (GitHub link in the README file) or install it with
+	'''sh
+	sudo apt-get install speedtest-cli
+	'''
+  </li>
+  <li>Edit <b>config.default.js</b> (if you want to) and rename it to <i>config.js</i></li>
   <li>Edit the <i>background-</i> attributes of <i>#temperature</i> in <b>css/common.css</b> or delete them</li>
   <li>
     <b>stats.php</b>
