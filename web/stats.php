@@ -33,7 +33,7 @@
 	$net_data = explode(" ", preg_replace('/\s+/', " ", $net_data));
 	$net_array = [($net_data[1] - $net_data_prev[1])/1024, $net_data[1]/1024, ($net_data[9] - $net_data_prev[9])/1024, $net_data[9]/1024];
 	//Root disk stats
-	$root_array = explode("\n",trim(shell_exec("df -lm | grep -P '^rootfs(.)*' | grep -Po '(?<=\s)[0-9]+'")));
+	$root_array = explode("\n",trim(shell_exec("df -lm | grep -P '^/dev/root(.)*' | grep -Po '(?<=\s)[0-9]+'")));
 	//SDA1/HDD stats
 	$sda_array = explode("\n", trim(shell_exec("df -lm | grep -P '^/dev/sda1(.)*' | grep -Po '(?<=\s)[0-9]+'")));
 	//RAM stats

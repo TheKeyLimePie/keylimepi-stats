@@ -1,5 +1,5 @@
 # keylimepi-stats
-Just a small web interface which shows you your Raspberry Pi stats such as temperature, CPU-, RAM-, disk- and network usage and DSL bandwith speedtests.
+Just a small web interface which shows you your Raspberry Pi (Raspbian 8) stats such as temperature, CPU-, RAM-, disk- and network usage and DSL bandwith speedtests.
 <br/>It's is powered by 
 <ul>
 	<li><a href="https://github.com/nnnick/Chart.js">Chart.js</a> (not in this repo)</li>
