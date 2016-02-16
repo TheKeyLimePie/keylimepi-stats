@@ -64,8 +64,8 @@
 		$check = 0;
 		$check += preg_match("/^[a-zA-Z]{2}(.+)[0-9]{4}$/m", $datasets[$x], $date);
 		$check += preg_match("/[0-9]+\.[0-9]+(?=\sms)/m", $datasets[$x], $ping);
-		$check += preg_match("/(?<=Download:\s)[0-9]+\.[0-9]+(?=\sMbit\/s)/m", $datasets[$x], $dl);
-		$check += preg_match("/(?<=Upload:\s)[0-9]+\.[0-9]+(?=\sMbit\/s)/m", $datasets[$x], $ul);
+		$check += preg_match("/(?<=Download:\s)[0-9]+\.[0-9]+(?=\sMbit(s){0,1}\/s)/m", $datasets[$x], $dl);
+		$check += preg_match("/(?<=Upload:\s)[0-9]+\.[0-9]+(?=\sMbit(s){0,1}\/s)/m", $datasets[$x], $ul);
 		if($check == 4)
 		{
 			$array = array();
