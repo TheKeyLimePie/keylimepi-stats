@@ -240,6 +240,7 @@ function update()
 	{
 		$.get("stats.php", function(val)
 		{
+			console.log(new Date());
 			val = $.parseJSON(val);
 			var d = new Date();
 			//temperature
@@ -321,6 +322,11 @@ function update()
 			var totalOut = (parseInt((val.network[3]/1024/1024) * 1000) / 1000);
 			$("#total_in").html("Total in: ".concat(totalIn, " GiB"));
 			$("#total_out").html("Total out: ".concat(totalOut, " GiB"));
+			//Uptime
+			uptime_date = new Date(val.uptime[0]);
+			console.log("System is up since: " + uptime_date.toString());
+			
+			console.log("\n");
 		});	
 	}
 }
@@ -375,7 +381,19 @@ function toggleSync()
 }
 function clock()
 {
-	var d = new Date();
-	var string = pad(d.getHours(),2).concat(":", pad(d.getMinutes(),2), ":", pad(d.getSeconds(),2));
-	document.getElementById("clock").innerHTML = string;
+	if(uptime_date !== undefined)
+	{
+		var diff = Date.now() - uptime_date.getTime();
+		
+		var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+		diff -= days * (1000 * 60 * 60 * 24);
+		var hours = Math.floor(diff / (1000 * 60 * 60));
+		diff -= hours * (1000 * 60 * 60);
+		var minutes = Math.floor(diff / (1000 * 60));
+		diff -= minutes * (1000 * 60);
+		var seconds = Math.floor(diff / 1000);
+		
+		var elapsed = days.toString().concat( days == 1 ? " day, " : " days, ", pad(hours,2), hours == 1 ? " hour, " : " hours, ", pad(minutes,2), minutes == 1 ? " minute, " : " minutes, ", pad(seconds, 2), seconds == 1 ? " second" : " seconds");
+		document.getElementById("clock").innerHTML = elapsed;
+	}
 }

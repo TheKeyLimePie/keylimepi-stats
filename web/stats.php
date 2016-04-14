@@ -43,7 +43,9 @@
 	$ram_array[] = $val[0];
 	//Temp stats
 	$temp = trim(shell_exec("cat /sys/class/thermal/thermal_zone*/temp"));
-
+	//Uptime
+	$up = explode("\n", trim(shell_exec("uptime -s")));
+	
 	//Output
 	$obj = new stdClass();
 	$obj->cpu = $cpu_array;
@@ -52,6 +54,7 @@
 	$obj->sda = $sda_array;
 	$obj->ram = $ram_array;
 	$obj->temp = $temp;
+	$obj->uptime = $up;
 
 	echo json_encode($obj);
 ?>
